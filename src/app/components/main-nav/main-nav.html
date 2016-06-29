@@ -1,0 +1,8 @@
+<nav>
+    <h1>App</h1>
+    <ul>
+        <li><a [routerLink]="['dashboard']">Dashboard</a></li>
+        <li><a [routerLink]="['account']">Account</a></li>
+        <li>Current Credit: {{ credit | async }}</li>
+    </ul>
+</nav>
