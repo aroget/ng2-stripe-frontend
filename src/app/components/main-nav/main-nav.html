@@ -1,8 +1,10 @@
-<nav>
-    <h1>App</h1>
-    <ul>
-        <li><a [routerLink]="['dashboard']">Dashboard</a></li>
-        <li><a [routerLink]="['account']">Account</a></li>
-        <li>Current Credit: {{ credit | async }}</li>
-    </ul>
+<nav class="row">
+    <div class="ten columns offset-by-one column">
+        <h1 class="u-pull-left">App</h1>
+        <ul class="u-pull-right">
+            <li><a [routerLink]="['dashboard']">Dashboard</a></li>
+            <li><a [routerLink]="['account']">Account</a></li>
+            <li>Credit: {{ credit | async | currency:'CAD' }}</li>
+        </ul>
+    </div>
 </nav>

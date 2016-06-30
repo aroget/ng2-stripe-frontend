@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+
+import { ValidationService } from './add-credit.validation';
 
 import { AddCreditService } from './add-credit.service';
 import { ADD_CREDIT } from '../../reducers';
@@ -10,30 +12,18 @@ declare var stripe: any;
 @Component({
     moduleId: module.id,
     selector: 'add-credit',
-    template: `
-    <form #form="ngForm" (submit)=onSubmit(form.value)>
-        <select ngControl="amount">
-            <option value="100">100</option>
-            <option value="500">500</option>
-            <option value="1000">1000</option>
-        </select>
-        <br>
-        <input type="text" ngControl="creditCardNumber" placeholder="Credit Card Number">
-        <br>
-        <input type="text" ngControl="creditCardExpMonth" placeholder="Credit Card Expiration Month">
-        <br>
-        <input type="text" ngControl="creditCardExpYear" placeholder="Credit Card Expiration Year">
-        <br>
-        <input type="text" ngControl="creditCardCvc" placeholder="Credit Card CVC">
-        <br>
-
-        <button type="submit">Add Credit</button>
-    </form>
-    `,
-    providers: [AddCreditService]
+    template: require('./add-credit.html'),
+    styles: [require('./add-credit.scss')],
+    providers: [
+        AddCreditService,
+        ValidationService
+    ]
 })
 export class AddCreditComponent implements OnInit {
+    @Output() onMessageChange = new EventEmitter();
+
     constructor(
+        private _validate: ValidationService,
         private _service: AddCreditService,
         private _store: Store<any>
     ) { }
@@ -41,6 +31,23 @@ export class AddCreditComponent implements OnInit {
     ngOnInit() { }
 
     onSubmit(data) {
+        console.log(typeof data);
+
+        try {
+            this._validate.isNumber(data.creditCardNumber, 'Card number');
+            this._validate.isNumber(data.creditCardExpMonth, 'Card expiration date');
+            this._validate.isNumber(data.creditCardExpYear, 'Card expiration year');
+            this._validate.isNumber(data.creditCardCvc, 'Card CVC');
+            this._validate.isValidCreditCardNumber(data.creditCardNumber);
+            this._validate.isValidMonth(data.creditCardExpMonth);
+            this._validate.isValidYear(data.creditCardExpYear);
+        } catch (e) {
+            this.onMessageChange.emit({
+                body: e,
+                class: 'alert--danger'
+            });
+            return;
+        }
         // 4242424242424242
         this._service
                     .charge(data.creditCardNumber,
@@ -51,20 +58,39 @@ export class AddCreditComponent implements OnInit {
                             data.amount
                             )
                     .subscribe(
-                        (res) => this.onPaymentSucces(res),
+                        (res) => {
+                            console.log(res)
+                            let status = res.statusCode;
+
+                            switch (status) {
+                                case (402):
+                                    this.onPaymentError(res.message);
+                                    break;
+                                default:
+                                     this.onPaymentSucces(res);
+                                    break;
+                            }
+                        },
                         (err) => this.onPaymentError(err)
                     );
     }
 
     onPaymentSucces(data) {
-        console.log(data);
         this._store.dispatch({
             type: ADD_CREDIT,
             payload: data.amount
+        });
+        this.onMessageChange.emit({
+            body: 'Credit successfully added',
+            class: 'alert--success'
         });
     }
 
     onPaymentError(err) {
         console.log(err);
+        this.onMessageChange.emit({
+            body: err,
+            class: 'alert--danger'
+        });
     }
 }

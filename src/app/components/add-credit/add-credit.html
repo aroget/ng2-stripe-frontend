@@ -1,0 +1,32 @@
+<form class="twleve columns" #form="ngForm" (submit)=onSubmit(form.value)>
+        <div class="row">
+            <select ngControl="amount">
+                <option value="100">100</option>
+                <option value="500">500</option>
+                <option value="1000">1000</option>
+            </select>
+        </div>
+        <div class="row">
+            <div class="one-half column">
+                <label>Credit Card Number</label>
+                <input type="text" ngControl="creditCardNumber" placeholder="5555-5555-5555-5555">
+            </div>
+            <div class="one-half column">
+                <label>Security Code</label>
+                <input type="text" ngControl="creditCardCvc" placeholder="123">
+            </div>
+        </div>
+        <div class="row">
+            <div class="one-half column">
+                <label>Expiration Month</label>
+                <input type="text" ngControl="creditCardExpMonth" placeholder="12">
+            </div>
+
+            <div class="one-half column">
+                <label>Expiration Year</label>
+                <input type="text" ngControl="creditCardExpYear" placeholder="2018">
+            </div>
+        </div>
+        <br>
+        <button class="btn btn--primary u-center" type="submit">Add Credit</button>
+    </form>

@@ -7,6 +7,7 @@ import { Store } from '@ngrx/store';
     moduleId: module.id,
     directives: [ROUTER_DIRECTIVES],
     selector: 'main-navigation',
+    styles: [require('./main-nav.scss')],
     template: require('./main-nav.html')
 })
 export class MainNavComponent implements OnInit {

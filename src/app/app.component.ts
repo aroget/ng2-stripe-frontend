@@ -18,7 +18,9 @@ import '../style/app.scss';
   ],
   template: `
   <main-navigation></main-navigation>
-  <router-outlet></router-outlet>
+  <div class="container">
+    <router-outlet></router-outlet>
+  </div>
   `
 })
 export class AppComponent {

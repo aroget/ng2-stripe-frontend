@@ -1,0 +1,34 @@
+.btn {
+    border: none;
+    height: auto;
+    color: #fff;
+    font-weight: 400;
+    border-radius: 0;
+    transition: all 300ms ease-in-out;
+
+    &.btn--primary {
+        background: $background-medium;
+
+        &:hover,
+        &:focus {
+            color: #fff;
+            background: lighten($background-medium, 10%);
+        }
+    }
+
+    &.btn--secondary {
+
+    }
+
+    &.btn--transparent {
+
+    }
+
+    &.btn--primary-ghost {
+
+    }
+
+    &.btn--secondary-ghost {
+
+    }
+}

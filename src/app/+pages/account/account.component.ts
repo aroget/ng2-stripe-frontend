@@ -1,17 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
-import { AddCreditComponent } from '../../components';
+import { AddCreditComponent, AppNotificationsComponent } from '../../components';
+import { NEW_MESSAGE } from '../../reducers';
 import { Store } from '@ngrx/store';
 
 
 @Component({
     moduleId: module.id,
     selector: 'account',
-    directives: [AddCreditComponent],
-    template: require('./account.html')
+    template: require('./account.html'),
+    directives: [
+        AddCreditComponent,
+        AppNotificationsComponent
+    ]
 })
 export class AccountComponent implements OnInit {
     public credit;
+
     constructor(
         private _store: Store<any>
     ) {
@@ -20,6 +25,14 @@ export class AccountComponent implements OnInit {
                             .subscribe((val) => {
                                 this.credit = val;
                             });
+    }
+
+    onMessage(message) {
+        this._store.dispatch({
+            type: NEW_MESSAGE,
+            payload: message
+        });
+        // this.notifications = message;
     }
 
     ngOnInit() { }

@@ -1,0 +1,25 @@
+.alert {
+    text-align: center;
+    padding: 10px 0;
+    transition: all 300ms ease-in-out;
+
+        &.alert--success {
+            background: $color-success;
+            color: darken($color-success, 40%);
+        }
+
+        &.alert--danger {
+            background: $color-danger;
+            color: darken($color-danger, 40%);
+        }
+
+        &.alert--warning {
+            background: $color-warning;
+            color: darken($color-warning, 40%);
+        }
+
+        &.alert--info {
+            background: $color-info;
+            color: darken($color-info, 40%);
+        }
+}

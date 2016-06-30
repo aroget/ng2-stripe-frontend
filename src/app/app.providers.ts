@@ -3,7 +3,7 @@ import { HTTP_PROVIDERS } from '@angular/http';
 import { APP_ROUTER_PROVIDERS } from './app.routes';
 
 import { provideStore } from '@ngrx/store';
-import { credit } from './reducers';
+import { credit, notifications } from './reducers';
 
 const ENV_PROVIDERS = [];
 
@@ -15,7 +15,8 @@ ENV_PROVIDERS.push([
     ...HTTP_PROVIDERS,
     ...APP_ROUTER_PROVIDERS,
     provideStore({
-        credit
+        credit,
+        notifications
     })
 ]);
 
