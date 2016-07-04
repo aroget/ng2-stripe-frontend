@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
-import { FormGroup, Validators, FormBuilder, REACTIVE_FORM_DIRECTIVES  } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder, REACTIVE_FORM_DIRECTIVES  } from '@angular/forms';
 import { isNumber, isValidCreditCardNumber, isValidDate } from './add-credit.validation';
 
 import { AddCreditService } from './add-credit.service';
@@ -23,6 +23,8 @@ declare var stripe: any;
 export class AddCreditComponent implements OnInit {
     @Output() onMessageChange = new EventEmitter();
     form: FormGroup;
+    credit: number = 0;
+    amount = new FormControl('0', [Validators.required, isNumber]);
 
     constructor(
         private fb: FormBuilder,
@@ -30,20 +32,33 @@ export class AddCreditComponent implements OnInit {
         private _store: Store<any>
     ) {
         this.form = fb.group({
-            'amount': ['', Validators.required],
+            'amount': this.amount,
             'creditNameOnCard': ['', Validators.required],
             'creditCardNumber': ['', [Validators.required, isNumber, isValidCreditCardNumber]],
             'creditCardExpirationDate': ['', [Validators.required, isValidDate]],
             'creditCardCvc': ['', [Validators.required, isNumber]],
         });
+
     }
 
     ngOnInit() { }
 
+    increaseCredit() {
+        this.credit += 100;
+        this.amount.updateValue(this.credit);
+        console.log(this.form);
+    }
+
+    decreaseCredit() {
+        this.credit -= 100;
+        this.amount.updateValue(this.credit);
+    }
+
     onSubmit(data) {
+        // 4242424242424242
         let creditCardExpMonth = parseInt(data.creditCardExpirationDate.split('/')[0], 10);
         let creditCardExpYear = parseInt(data.creditCardExpirationDate.split('/')[1], 10);
-        // 4242424242424242
+
         this._service
                     .charge(data.creditNameOnCard,
                             data.creditCardNumber,

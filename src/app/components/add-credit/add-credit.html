@@ -1,30 +1,37 @@
 <form class="six columns offset-by-three column" [formGroup]="form" (submit)=onSubmit(form.value)>
         <div class="row">
-            <select formControlName="amount">
-                <option value="100">100</option>
-                <option value="500">500</option>
-                <option value="1000">1000</option>
-            </select>
+            <div class="one-half column">
+                <div class="action button--add" (click)=increaseCredit()>+</div>
+                <div class="action button--remove" (click)=decreaseCredit()>-</div>
+            </div>
+            <div class="one-half column">
+                <input type="text" formControlName="amount" [value]="credit">
+            </div>
         </div>
+        <br>
         <div class="row">
             <div class="twelve columns">
-                <label>Name on Card</label>
+                <label class="u-pull-left">Name on Card</label>
+                <label [hidden]="!form.invalid" class="u-pull-right error">Name can't be blank</label>
                 <input type="text" formControlName="creditNameOnCard" placeholder="Name on Card">
             </div>
         </div>
         <div class="row">
             <div class="twelve columns">
-                <label>Credit Card Number</label>
+                <label class="u-pull-left">Credit Card Number</label>
+                <label [hidden]="!form.invalid" class="u-pull-right error">Invalid Card Number</label>
                 <input type="text" formControlName="creditCardNumber" placeholder="5555-5555-5555-5555">
             </div>
         </div>
         <div class="row">
             <div class="one-half column">
-                <label>Expiry Date</label>
+                <label class="u-pull-left">Expiry Date</label>
+                <label [hidden]="!form.invalid" class="u-pull-right error">Inv Exp Date</label>
                 <input type="text" formControlName="creditCardExpirationDate" placeholder="MM / YYYY">
             </div>
             <div class="one-half column">
-                <label>CVV</label>
+                <label class="u-pull-left">CVV</label>
+                <label [hidden]="!form.invalid" class="u-pull-right error">Invalid CVV</label>
                 <input type="text" formControlName="creditCardCvc" placeholder="123">
             </div>
         </div>

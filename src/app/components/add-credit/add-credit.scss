@@ -3,6 +3,10 @@
 form {
     label {
         font-size: .7em;
+
+        &.error {
+            color: red;
+        }
     }
     input {
         width: 100%;
@@ -14,6 +18,31 @@ form {
         &:focus,
         &:active {
             border-bottom: 2px solid $border-dark;
+        }
+    }
+
+    .action {
+        width: 50px;
+        height:40px;
+        color: #fff;
+        font-size: 2em;
+        line-height: 1;
+        text-align: center;
+        display: inline-block;
+
+        &:hover {
+            cursor: pointer;
+        }
+
+        &.button--add {
+            background: $background-dark;
+            border: 2px solid $border-dark;
+        }
+
+        &.button--remove {
+            color: $font-dark;
+            background: #fff;
+            border: 2px solid $border-dark;
         }
     }
 }
