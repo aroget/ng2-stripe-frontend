@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
-import { ValidationService } from './add-credit.validation';
+import { FormGroup, Validators, FormBuilder, REACTIVE_FORM_DIRECTIVES  } from '@angular/forms';
+import { isNumber, isValidCreditCardNumber, isValidDate } from './add-credit.validation';
 
 import { AddCreditService } from './add-credit.service';
 import { ADD_CREDIT } from '../../reducers';
@@ -14,52 +15,46 @@ declare var stripe: any;
     selector: 'add-credit',
     template: require('./add-credit.html'),
     styles: [require('./add-credit.scss')],
+    directives: [REACTIVE_FORM_DIRECTIVES],
     providers: [
-        AddCreditService,
-        ValidationService
+        AddCreditService
     ]
 })
 export class AddCreditComponent implements OnInit {
     @Output() onMessageChange = new EventEmitter();
+    form: FormGroup;
 
     constructor(
-        private _validate: ValidationService,
+        private fb: FormBuilder,
         private _service: AddCreditService,
         private _store: Store<any>
-    ) { }
+    ) {
+        this.form = fb.group({
+            'amount': ['', Validators.required],
+            'creditNameOnCard': ['', Validators.required],
+            'creditCardNumber': ['', [Validators.required, isNumber, isValidCreditCardNumber]],
+            'creditCardExpirationDate': ['', [Validators.required, isValidDate]],
+            'creditCardCvc': ['', [Validators.required, isNumber]],
+        });
+    }
 
     ngOnInit() { }
 
     onSubmit(data) {
-        console.log(typeof data);
-
-        try {
-            this._validate.isNumber(data.creditCardNumber, 'Card number');
-            this._validate.isNumber(data.creditCardExpMonth, 'Card expiration date');
-            this._validate.isNumber(data.creditCardExpYear, 'Card expiration year');
-            this._validate.isNumber(data.creditCardCvc, 'Card CVC');
-            this._validate.isValidCreditCardNumber(data.creditCardNumber);
-            this._validate.isValidMonth(data.creditCardExpMonth);
-            this._validate.isValidYear(data.creditCardExpYear);
-        } catch (e) {
-            this.onMessageChange.emit({
-                body: e,
-                class: 'alert--danger'
-            });
-            return;
-        }
+        let creditCardExpMonth = parseInt(data.creditCardExpirationDate.split('/')[0], 10);
+        let creditCardExpYear = parseInt(data.creditCardExpirationDate.split('/')[1], 10);
         // 4242424242424242
         this._service
-                    .charge(data.creditCardNumber,
-                            data.creditCardExpMonth,
-                            data.creditCardExpYear,
+                    .charge(data.creditNameOnCard,
+                            data.creditCardNumber,
+                            creditCardExpMonth,
+                            creditCardExpYear,
                             data.creditCardCvc,
                             'cad',
                             data.amount
                             )
                     .subscribe(
                         (res) => {
-                            console.log(res)
                             let status = res.statusCode;
 
                             switch (status) {

@@ -1,32 +1,33 @@
-<form class="twleve columns" #form="ngForm" (submit)=onSubmit(form.value)>
+<form class="six columns offset-by-three column" [formGroup]="form" (submit)=onSubmit(form.value)>
         <div class="row">
-            <select ngControl="amount">
+            <select formControlName="amount">
                 <option value="100">100</option>
                 <option value="500">500</option>
                 <option value="1000">1000</option>
             </select>
         </div>
         <div class="row">
-            <div class="one-half column">
-                <label>Credit Card Number</label>
-                <input type="text" ngControl="creditCardNumber" placeholder="5555-5555-5555-5555">
+            <div class="twelve columns">
+                <label>Name on Card</label>
+                <input type="text" formControlName="creditNameOnCard" placeholder="Name on Card">
             </div>
-            <div class="one-half column">
-                <label>Security Code</label>
-                <input type="text" ngControl="creditCardCvc" placeholder="123">
+        </div>
+        <div class="row">
+            <div class="twelve columns">
+                <label>Credit Card Number</label>
+                <input type="text" formControlName="creditCardNumber" placeholder="5555-5555-5555-5555">
             </div>
         </div>
         <div class="row">
             <div class="one-half column">
-                <label>Expiration Month</label>
-                <input type="text" ngControl="creditCardExpMonth" placeholder="12">
+                <label>Expiry Date</label>
+                <input type="text" formControlName="creditCardExpirationDate" placeholder="MM / YYYY">
             </div>
-
             <div class="one-half column">
-                <label>Expiration Year</label>
-                <input type="text" ngControl="creditCardExpYear" placeholder="2018">
+                <label>CVV</label>
+                <input type="text" formControlName="creditCardCvc" placeholder="123">
             </div>
         </div>
         <br>
-        <button class="btn btn--primary u-center" type="submit">Add Credit</button>
+        <button class="btn btn--primary u-center" [disabled]="!form.valid" type="submit">Add Credit</button>
     </form>

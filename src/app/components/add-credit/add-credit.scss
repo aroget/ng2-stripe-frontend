@@ -1,5 +1,19 @@
+@import '../../../style/theme/_colors';
+
 form {
     label {
         font-size: .7em;
+    }
+    input {
+        width: 100%;
+        border: none;
+        border-radius: 0;
+        border-bottom: 2px solid $border-medium;
+        transition: border-bottom 300ms ease-in-out;
+
+        &:focus,
+        &:active {
+            border-bottom: 2px solid $border-dark;
+        }
     }
 }

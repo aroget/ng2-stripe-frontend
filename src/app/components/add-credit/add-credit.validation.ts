@@ -1,44 +1,33 @@
-import { Injectable } from '@angular/core';
+import { FormControl } from '@angular/forms';
 
-@Injectable()
-export class ValidationService {
+export function isNumber(c: FormControl) {
+  let NUMBER_REGEX = /^\d+$/;
 
-    constructor() { }
-
-    isNumber(month, target) {
-        let regex = /^\d+$/;
-
-        if (!regex.test(month)) {
-            throw(`${target} is not a valid number`);
-        }
+  return NUMBER_REGEX.test(c.value) ? null : {
+    isNumber: {
+      valid: false
     }
+  };
+}
 
-    isBlank(data) {
-        if (data.trim() === '') {
-            throw('All fields are required');
-        }
+export function isValidCreditCardNumber(c: FormControl) {
+
+  return c.value.toString().length === 16 ? null : {
+    isValidCreditCardNumber: {
+      valid: false
     }
+  };
+}
 
-    isValidCreditCardNumber(number) {
-        if (number.toString().length !== 16) {
-            throw('This is not a valid credit card number');
+export function isValidDate(c: FormControl) {
+    let today = new Date();
+    let creditCardExpMonth = parseInt(c.value.split('/')[0], 10);
+    let creditCardExpYear = parseInt(c.value.split('/')[1], 10);
+    let expDate = new Date(creditCardExpYear, creditCardExpMonth);
+
+    return expDate > today ? null : {
+        isValidDate: {
+            valid: false
         }
-    }
-
-    isValidMonth(month) {
-        let validMonths = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-
-        if (validMonths.indexOf(parseInt(month, 10)) === -1) {
-            throw('Month is not valid');
-        }
-    }
-
-    isValidYear(year) {
-        let thisYear = new Date().getFullYear();
-
-        if (year < thisYear) {
-            throw('Year is already passed');
-        }
-    }
-
+    };
 }
