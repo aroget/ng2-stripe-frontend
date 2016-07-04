@@ -1,12 +1,8 @@
 <form class="six columns offset-by-three column" [formGroup]="form" (submit)=onSubmit(form.value)>
         <div class="row">
-            <div class="one-half column">
-                <div class="action button--add" (click)=increaseCredit()>+</div>
-                <div class="action button--remove" (click)=decreaseCredit()>-</div>
-            </div>
-            <div class="one-half column">
-                <input type="text" formControlName="amount" [value]="credit">
-            </div>
+            <div class="action button--add" (click)=increaseCredit()>+</div>
+            <input class="credit" type="text" formControlName="amount" [value]="credit">
+            <div class="action button--remove" (click)=decreaseCredit()>-</div>
         </div>
         <br>
         <div class="row">

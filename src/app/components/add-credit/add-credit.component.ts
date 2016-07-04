@@ -46,7 +46,6 @@ export class AddCreditComponent implements OnInit {
     increaseCredit() {
         this.credit += 100;
         this.amount.updateValue(this.credit);
-        console.log(this.form);
     }
 
     decreaseCredit() {
