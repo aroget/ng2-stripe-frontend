@@ -1,55 +1,88 @@
-// import { AddCreditService } from './add-credit.service';
-// import {  ResponseOptions,
-//           Response,
-//           Http,
-//           BaseRequestOptions,
-//           RequestMethod
-// } from '@angular/http';
+import {
+  BaseRequestOptions,
+  Response,
+  ResponseOptions,
+  ConnectionBackend,
+  Http
+} from '@angular/http';
 
-// import { describe,
-//          expect,
-//          it,
-//          inject,
-//          fakeAsync,
-//          beforeEachProviders
-// } from '@angular/core/testing';
+import {
+  it,
+  expect,
+  describe,
+  beforeEachProviders,
+  inject,
+  fakeAsync,
+  tick
+} from '@angular/core/testing';
 
-// import { provide } from '@angular/core';
-// import { MockBackend, MockConnection } from '@angular/http/testing';
+import 'rxjs/add/operator/map';
 
-// const mockHttpProvider = {
-//   deps: [ MockBackend, BaseRequestOptions ],
-//   useFactory: (backend: MockBackend, defaultOptions: BaseRequestOptions) => {
-//     return new Http(backend, defaultOptions);
-//   }
-// };
+import { MockBackend } from '@angular/http/testing';
+import { provide } from '@angular/core';
+import { AddCreditService } from './add-credit.service';
 
-// const mockCreditCardData = ['Andres Roget', '424242424242424242', 12, 2019, 123, 'cad', 300];
+const dummyCharge = { creditNameOnCard: 'Andres Roget',
+                      creditCardNumber: '4242424242424242',
+                      creditCardExpMonth: '3',
+                      creditCardExpYear: '2019',
+                      creditCardCvc: '123',
+                      currency: 'cad',
+                      amount: '200'
+};
+
+describe('Api Service', () => {
+
+    beforeEachProviders(() => {
+        return [
+            MockBackend,
+            BaseRequestOptions,
+            AddCreditService,
+            provide(
+            Http, {
+                useFactory: (
+                mockbackend: ConnectionBackend,
+                defaultOptions: BaseRequestOptions
+                ) => {
+                return new Http(mockbackend, defaultOptions);
+                },
+                deps: [MockBackend, BaseRequestOptions]
+            }
+            )
+        ];
+    });
+
+    it('should charge', fakeAsync(inject([AddCreditService, MockBackend], (addCreditService, mockBackend) => {
+        const expectedUrl = 'http://localhost:5000/api/charge';
+
+        mockBackend.connections.subscribe((conn) => {
+            // expect(true).toBe(false);
+            expect(conn.request.url).toBe(expectedUrl);
 
 
-// describe('Add Credit Service', () => {
-//   beforeEachProviders(() => {
-//     return [
-//       MockBackend,
-//       BaseRequestOptions,
-//       provide(Http, mockHttpProvider),
-//       AddCreditService
-//     ];
-//   });
+            // let response = new ResponseOptions({
+            //   body: {
+            //     query: {
+            //       searchInfo: { totalhits: 1 }
+            //     },
+            //     search: [
+            //       {
+            //         ns: 0,
+            //         title: 'Angular',
+            //         size: 840,
+            //         wordcount: 115
+            //       }
+            //     ]
+            //   }
+            // });
 
-//   it('should charge the right amount',
-//     inject(
-//       [AddCreditService, MockBackend],
-//       fakeAsync((service: AddCreditService, backend: MockBackend) => {
-//         backend.connections.subscribe((connection: MockConnection) => {
+            // conn.mockRespond(new Response(response));
+        });
+        let result;
+        addCreditService.charge(dummyCharge).subscribe((res) => {
+            result = res;
+        });
 
-//           expect(connection.request.method).toBe(RequestMethod.Post);
-//           expect(connection.request.url).toBe(
-//             'http://localhost:5000/api/charge');
-
-//         });
-
-//         service.charge('Andres Roget', '424242424242424242', 12, 2019, 123, 'cad', 300);
-//         console.log('charging');
-//       })));
-// });
+        tick();
+    })));
+});

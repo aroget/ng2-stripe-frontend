@@ -4,7 +4,7 @@ import { Http, Headers } from '@angular/http';
 @Injectable()
 export class AddCreditService {
 
-    private url: string;
+    public url: string;
 
     constructor(
         private _http: Http
