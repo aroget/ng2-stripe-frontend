@@ -1,10 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { Store } from '@ngrx/store';
 import { DEFAULT_STATE } from '../../reducers/notifications.reducer';
 
-interface Notification {
+export interface Notification {
     body: string;
     class: string;
 }
@@ -12,9 +12,10 @@ interface Notification {
 @Component({
     moduleId: module.id,
     selector: 'app-notifications',
+    styles: [require('./notifications.scss')],
     template: require('./notifications.html')
 })
-export class AppNotificationsComponent implements OnInit {
+export class AppNotificationsComponent implements OnInit, OnDestroy {
 
     message: any;
 
@@ -22,18 +23,21 @@ export class AppNotificationsComponent implements OnInit {
         private _store: Store<Notification>
     ) {
        _store.select('notifications')
-             .subscribe((data) => {
-                this.message = data;
-                setTimeout(() => this.clearMessages(), 3000);
-             });
+             .subscribe((data) => this.message = data );
     }
 
-    clearMessages() {
+    closeNotification() {
         this._store.dispatch({
             type: DEFAULT_STATE
         });
     }
 
-    ngOnInit() { }
+    ngOnDestroy() {
+        this._store.dispatch({
+            type: DEFAULT_STATE
+        });
+    }
+
+    ngOnInit() {}
 
 }

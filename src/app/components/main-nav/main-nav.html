@@ -4,7 +4,7 @@
         <ul class="u-pull-right">
             <li><a [routerLink]="['dashboard']">Dashboard</a></li>
             <li><a [routerLink]="['account']">Account</a></li>
-            <li>Credit: {{ credit | async | currency:'CAD' }}</li>
+            <li>Credit: {{ credit.value | currency:'CAD' }}</li>
         </ul>
     </div>
 </nav>

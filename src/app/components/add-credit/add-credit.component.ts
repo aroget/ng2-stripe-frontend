@@ -7,9 +7,6 @@ import { AddCreditService } from './add-credit.service';
 import { ADD_CREDIT } from '../../reducers';
 import { Store } from '@ngrx/store';
 
-declare var Stripe: any;
-declare var stripe: any;
-
 @Component({
     moduleId: module.id,
     selector: 'add-credit',

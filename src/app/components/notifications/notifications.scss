@@ -1,0 +1,14 @@
+.notifications {
+    span {
+        font-size: .9em;
+        font-weight: 500;
+        margin-left: 10px;
+        text-align: right;
+        display: inline-block;
+        text-transform: uppercase;
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
+}

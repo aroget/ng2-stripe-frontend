@@ -16,7 +16,10 @@ export class MainNavComponent implements OnInit {
     constructor(
         private _store: Store<any>
     ) {
-        this.credit = _store.select('credit');
+        _store.select('credit')
+                            .subscribe((data) => {
+                                this.credit = data;
+                            });
     }
 
     ngOnInit() { }

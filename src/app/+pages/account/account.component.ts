@@ -32,7 +32,6 @@ export class AccountComponent implements OnInit {
             type: NEW_MESSAGE,
             payload: message
         });
-        // this.notifications = message;
     }
 
     ngOnInit() { }
