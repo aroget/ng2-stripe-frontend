@@ -8,7 +8,7 @@ export interface NotificationsState {
     class: string;
 }
 
-const initialState: NotificationsState = {
+export const initialState: NotificationsState = {
     body: '',
     class: ''
 };

@@ -38,6 +38,6 @@ export class AppNotificationsComponent implements OnInit, OnDestroy {
         });
     }
 
-    ngOnInit() {}
+    ngOnInit() { }
 
 }

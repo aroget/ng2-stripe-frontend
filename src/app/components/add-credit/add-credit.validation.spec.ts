@@ -9,8 +9,6 @@ import {
 } from '@angular/core/testing';
 
 ​import { FormControl } from '@angular/forms';
-
-​
 ​
 describe('Add Credit Validation', () => {
 
@@ -58,8 +56,11 @@ describe('Add Credit Validation', () => {
 
     it('should return null if valid date', () => {
         let input = new FormControl('0');
+        let month = new Date().getMonth();
+        let year = new Date().getFullYear();
+        let nextYear = year + 1;
 
-        input.updateValue('03/2030');
+        input.updateValue(`${month}/${nextYear}`);
 
         expect(isValidDate(input)).toBeNull();
     });
