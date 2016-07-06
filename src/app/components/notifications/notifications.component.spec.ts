@@ -1,27 +1,25 @@
-// import {
-//     expect,
-//     it,
-//     describe,
-//     injectAsync,
-//     beforeEachProvider
-// } from '@angular/core/testing';
+import {
+    expect,
+    it,
+    describe,
+    TestComponentBuilder,
+    addProviders,
+    inject,
+} from '@angular/core/testing';
+​
+import { AppNotificationsComponent } from './notifications.component';
+import {provide} from '@angular/core';
 
-// import  { TestComponentBuilder } from '@angular/platform-browser/testing';
-// ​
-// import { AppNotificationsComponent } from './notifications.component';
-// import {provide} from '@angular/core';
-// ​
-// ​
-// describe('testing notifications component', () => {
-//     // beforeEachProvider(() => {
-//     //     provide(QuoteService, {useClass: MockQuoteService})
-//     // });
+describe('testing notifications component', () => {
+    // beforeEach(() => {
+    // addProviders([MyService]);
+    // });
 
-//     it('should display right message and class', injectAsync(
-//         [TestComponentBuilder], (tcb) => {
-//             return tcb.createAsync(AppNotificationsComponent).then((fixture) => {
-
-//             });
-//         }
-//     ));
-// });
+    it('should display right message and class', inject(
+        [TestComponentBuilder], (tcb) => {
+            return tcb.createAsync(AppNotificationsComponent).then((fixture) => {
+                expect(true).toBe(true);
+            });
+        }
+    ));
+});
