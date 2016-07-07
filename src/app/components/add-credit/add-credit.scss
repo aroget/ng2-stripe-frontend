@@ -1,0 +1,57 @@
+@import '../../../style/theme/_colors';
+
+form {
+    label {
+        font-size: .7em;
+
+        &.error {
+            color: red;
+        }
+    }
+    input {
+        width: 100%;
+        border: none;
+        border-radius: 0;
+        border-bottom: 2px solid $border-medium;
+        transition: border-bottom 300ms ease-in-out;
+
+        &.credit {
+            width: 67%;
+            height: 40px;
+            border: 2px solid;
+            text-align: center;
+            vertical-align: top;
+            display: inline-block;
+        }
+
+        &:focus,
+        &:active {
+            border-bottom: 2px solid $border-dark;
+        }
+    }
+
+    .action {
+        width: 15%;
+        height:40px;
+        color: #fff;
+        font-size: 2em;
+        line-height: 1;
+        text-align: center;
+        display: inline-block;
+
+        &:hover {
+            cursor: pointer;
+        }
+
+        &.button--add {
+            background: $background-dark;
+            border: 2px solid $border-dark;
+        }
+
+        &.button--remove {
+            color: #fff;
+            background: $background-light;
+            border: 2px solid $background-light;
+        }
+    }
+}

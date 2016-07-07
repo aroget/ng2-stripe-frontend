@@ -1,0 +1,48 @@
+.btn {
+    border: none;
+    height: auto;
+    color: #fff;
+    font-weight: 400;
+    border-radius: 0;
+    transition: all 300ms ease-in-out;
+
+    &.btn--primary {
+        background: $background-medium;
+
+        &:hover,
+        &:focus {
+            color: #fff;
+            background: lighten($background-medium, 10%);
+        }
+
+        &:disabled {
+            background: lighten($background-medium, 30%);
+        }
+    }
+
+    &.btn--secondary {
+        background: $background-light;
+
+        &:hover,
+        &:focus {
+            color: #fff;
+            background: lighten($background-light, 10%);
+        }
+
+        &:disabled {
+            background: lighten($background-light, 30%);
+        }
+    }
+
+    &.btn--transparent {
+
+    }
+
+    &.btn--primary-ghost {
+
+    }
+
+    &.btn--secondary-ghost {
+
+    }
+}

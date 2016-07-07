@@ -1,0 +1,8 @@
+.shop-list {
+    display: flex;
+    flex-wrap: wrap;
+
+    .shop-list__item {
+        flex-grow: 1;
+    }
+}

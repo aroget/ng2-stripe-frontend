@@ -1,0 +1,6 @@
+<div class="row notifications" *ngIf="message.body !== ''">
+    <p class="alert {{ message.class }}">
+        {{ message.body }}
+        <span (click)=closeNotification()>x</span>
+    </p>
+</div>

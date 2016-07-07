@@ -1,0 +1,13 @@
+<div class="cart">
+    <div class="cart__preview" (click)="isOpen = !isOpen">
+        {{ total }}
+        <span class="icon icon--cart"></span>
+    </div>
+    <ul [hidden]="!isOpen" class="cart__list u-text-center z-index-top">
+        <li class="cart__list-item" *ngFor="let item of items">
+            <div class="cart__list-image u-pull-left"><img src="{{ item.image }}" alt="{{ item.name }}"></div>
+            <div class="cart__list-title u-pull-right">{{ item.name }}</div>
+        </li>
+        <li><button class="btn btn--secondary" [routerLink]="['checkout']">Checkout</button></li>
+    </ul>
+</div>

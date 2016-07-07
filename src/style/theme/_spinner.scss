@@ -1,0 +1,82 @@
+.spinner-wrapper {
+    position: fixed;
+    z-index: 1050;
+    background-color: #222;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    -webkit-transition: all 0.35s;
+    -moz-transition: all 0.35s;
+    -ms-transition: all 0.35s;
+    transition: all 0.35s;
+
+    .spinner {
+        display: block;
+        position: absolute;
+        width: 150px;
+        height: 150px;
+        top: 50%;
+        left: 50%;
+        margin: -75px 0 0 -75px;
+        z-index: 1051;
+        animation: spin 2s linear infinite;
+        border-width: 3px;
+        border-style: solid;
+        border-color: #47788c transparent transparent;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        -ms-border-radius: 50%;
+        border-radius: 50%;
+
+        &:before {
+            position: absolute;
+            content: "";
+            top: 5px;
+            right: 5px;
+            bottom: 5px;
+            left: 5px;
+            border-width: 3px;
+            border-style: solid;
+            border-color: #42c2ba transparent transparent;
+            -webkit-border-radius: 50%;
+            -moz-border-radius: 50%;
+            -ms-border-radius: 50%;
+            border-radius: 50%;
+            animation: spin 3s linear infinite;
+        }
+
+        &:after {
+            position: absolute;
+            content: "";
+            top: 15px;
+            right: 15px;
+            bottom: 15px;
+            left: 15px;
+            border-width: 3px;
+            border-style: solid;
+            border-color: #51ace1 transparent transparent;
+            -webkit-border-radius: 50%;
+            -moz-border-radius: 50%;
+            -ms-border-radius: 50%;
+            border-radius: 50%;
+            animation: spin 1.5s linear infinite;
+        }
+    }
+}
+
+@keyframes spin {
+  from {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+
+  to {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}

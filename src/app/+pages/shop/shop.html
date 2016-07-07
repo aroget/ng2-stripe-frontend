@@ -1,0 +1,7 @@
+<div class="shop-list">
+    <shop-item *ngFor="let item of items"
+               class="shop-list__item"
+               [data]="item"
+               (itemAdded)="onItemAdded($event)">
+    </shop-item>
+</div>

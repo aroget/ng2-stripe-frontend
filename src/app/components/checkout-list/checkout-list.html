@@ -1,0 +1,24 @@
+<app-notifications></app-notifications>
+
+<div class="checkout" *ngIf="items.length > 0">
+    <ul class="checkout-list">
+        <li *ngFor="let item of items" class="checkout-list__item">
+            <div class="checkout-list__image">
+                <img src="{{ item.image }}">
+            </div>
+            <div class="checkout-list__title">
+                {{ item.name }}
+            </div>
+            <div class="checkout-list__price">
+                {{ item.price | currency:'CAD' }}
+            </div>
+        </li>
+    </ul>
+    <p class=".h3">Total: {{ orderTotal | currency:'CAD' }}</p>
+    <button class="btn btn--primary u-pull-right"
+            (click)="placeOrder()">Place Order</button>
+</div>
+
+<div *ngIf="items.length === 0">
+    <p class="u-text-center">No items on your cart yet!</p>
+</div>
