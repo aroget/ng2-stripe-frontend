@@ -9,7 +9,7 @@ export class AddCreditService {
     constructor(
         private _http: Http
     ) {
-        this.url = 'http://localhost:5000/api';
+        this.url = 'http://ar-node-stripe.herokuapp.com/api';
     }
 
     public charge(creditNameOnCard: string,
