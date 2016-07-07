@@ -17,9 +17,6 @@ export function credit (state = initialState, action: Action): CreditState {
         case (ADD_CREDIT):
             return Object.assign({}, state, { value: state.value + (action.payload / 100) });
         case (USE_CREDIT):
-            console.log(state.value)
-            console.log(action.payload)
-            console.log('andres')
             return Object.assign({}, state, { value: state.value - action.payload });
         default:
             return state;

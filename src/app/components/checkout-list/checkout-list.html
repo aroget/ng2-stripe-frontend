@@ -1,3 +1,5 @@
+<app-notifications></app-notifications>
+
 <div class="checkout" *ngIf="items.length > 0">
     <ul class="checkout-list">
         <li *ngFor="let item of items" class="checkout-list__item">
@@ -13,7 +15,8 @@
         </li>
     </ul>
     <p class=".h3">Total: {{ orderTotal | currency:'CAD' }}</p>
-    <button class="btn btn--primary u-pull-right" (click)="placeOrder()">Place Order</button>
+    <button class="btn btn--primary u-pull-right"
+            (click)="placeOrder()">Place Order</button>
 </div>
 
 <div *ngIf="items.length === 0">

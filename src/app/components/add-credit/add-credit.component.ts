@@ -93,7 +93,7 @@ export class AddCreditComponent implements OnInit {
     }
 
     onPaymentError(err) {
-        console.log(err);
+        // console.log(err);
         this.onMessageChange.emit({
             body: err,
             class: 'alert--danger'
