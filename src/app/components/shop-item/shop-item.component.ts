@@ -27,7 +27,6 @@ export class ShopItemComponent implements OnInit {
     }
 
     addToCart(item) {
-        console.log(item);
         this.itemAdded.emit(item);
     }
 

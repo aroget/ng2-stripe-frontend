@@ -21,7 +21,17 @@
     }
 
     &.btn--secondary {
+        background: $background-light;
 
+        &:hover,
+        &:focus {
+            color: #fff;
+            background: lighten($background-light, 10%);
+        }
+
+        &:disabled {
+            background: lighten($background-light, 30%);
+        }
     }
 
     &.btn--transparent {

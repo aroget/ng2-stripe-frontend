@@ -1,0 +1,43 @@
+@import '../../../style/theme/_colors';
+
+.cart {
+    position: relative;
+    display: inline-block;
+
+    .icon {
+        vertical-align: -4px;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+
+    .cart__list {
+        top: 30px;
+        right: -10px;
+        width: 220px;
+        padding: 10px 0;
+        list-style: none;
+        position: absolute;
+        border-radius: 4px;
+        background: darken($color-white, 2%);
+        box-shadow: 2px 0 8px rgba(0, 0, 0, .1);
+
+        .cart__list-item {
+            padding: 0 20px;
+            height: 50px;
+            color: $font-dark;
+
+            .cart__list-image {
+                img {
+                    width: 20px;
+                    height: 20px;
+                }
+            }
+        }
+
+        a.btn {
+            width: 90%;
+        }
+    }
+}

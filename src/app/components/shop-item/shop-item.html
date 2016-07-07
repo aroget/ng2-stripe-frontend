@@ -1,8 +1,10 @@
 <div class="shop-item">
-    <figure class="data.image"></figure>
+    <div class="shop-item__image">
+        <img src="{{ data.image }}" alt="{{ data.name }}">
+    </div>
     <p class="shop-item__name">{{ data.name }}</p>
     <p class="shop-item__price">{{ data.price | currency:'CAD' }}</p>
     <button class="btn btn--primary"
-            (click)=addToCart(data.name)
+            (click)=addToCart(data)
             [disabled]="data.price > availableCredit.value" >Add to Cart</button>
 </div>

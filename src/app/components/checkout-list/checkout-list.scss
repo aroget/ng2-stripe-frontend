@@ -1,0 +1,9 @@
+.checkout-list {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+
+    .checkout-list__item {
+        flex-grow: 1;
+    }
+}
